@@ -16,6 +16,8 @@ Config file:
 Note: Wild card in subscribe is '*', not '#', it is replaced internally...
 
 
+Note: The code will be updated to use the cfgf library to read config file.
+Not there yet though.
 
 
 systemctl status mqtt2tt
