@@ -1,0 +1,15 @@
+# Service file for mqtt2tt
+
+[Unit]
+Description=mqtt2tt service
+Requires=mosquitto.service
+After=mosquitto.service
+
+[Service]
+ExecStart=/usr/local/bin/mqtt2tt /usr/local/etc/mqtt2tt.cfg
+StandardOutput=journal+console
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

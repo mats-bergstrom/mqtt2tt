@@ -1,0 +1,31 @@
+mqtt2tt - send mqtt messages to ticktock db.
+
+Uses MQTT, uses http connection to ticktock
+
+Usage: mqtt2tt <config-file>
+
+Config file:
+<config-file>	:: { <comment-line> | <broker-line> | <ttdb-line> | <topic-line> | <mqttid-line> }*
+<comment-line>	:: # <anything> <eol>
+<broker-line>	:: broker <mqtt-broker> <space> <mqtt-port> <eol>
+<ttdb-line>	:: ttdb <ticktockdb-host> <space> <ticktockdb-port> <eol>
+<topic-line>	:: topic <mqtt-topic> <space> <metric> <space> <tag-vals> <eol>
+<subscribe-line>:: subscribe <topic> <eol>
+<mqttid-line>	:: mqttid <name> <eol>
+
+Note: Wild card in subscribe is '*', not '#', it is replaced internally...
+
+
+
+
+systemctl status mqtt2tt
+sudo systemctl start mqtt2tt
+sudo systemctl stop mqtt2tt
+sudo journalctl -t mqtt2tt
+
+sudo systemctl stop mqtt2tt
+sudo make install
+sudo systemctl start mqtt2tt
+systemctl status mqtt2tt
+
+journalctl -f -t mqtt2tt

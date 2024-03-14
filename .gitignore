@@ -1,0 +1,9 @@
+*.o
+.#*
+*~
+*.log
+mqtt2tt
+cfgf
+private-mqtt2tt.cfg
+push.sh
+
