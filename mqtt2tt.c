@@ -9,8 +9,8 @@
  * Created On      : Sun Dec 31 12:16:05 2023
  * 
  * Last Modified By: Mats Bergstrom
- * Last Modified On: Tue Mar 12 11:09:27 2024
- * Update Count    : 92
+ * Last Modified On: Sun Mar 16 11:29:59 2025
+ * Update Count    : 96
  */
 
 
@@ -236,9 +236,20 @@ tcp_post(const char *body)
 
 
 void
+mqtt_subscribe(struct mosquitto *mqc) {
+    int n;
+    for ( n = 0; n < n_sub_str; ++n ) {
+	printf(".. Subscribe \"%s\"\n", sub_str[n]);
+	mosquitto_subscribe(mqc, NULL, sub_str[n], 0);
+    }
+}
+
+
+void
 connect_callback(struct mosquitto *mqc, void *obj, int result)
 {
     printf("Connected: %d\n", result);
+    mqtt_subscribe(mqc);
 }
 
 
@@ -606,17 +617,12 @@ main(int argc, const char** argv)
 
     do {
 	int i;
-	unsigned n;
 	i = mosquitto_connect(mqc, mqtt_broker, mqtt_port, 60);
 	if ( i != MOSQ_ERR_SUCCESS) {
 	    perror("mosquitto_connect: ");
 	    exit( EXIT_FAILURE );
 	}
 
-	for ( n = 0; n < n_sub_str; ++n ) {
-	    printf("subscribe \"%s\"\n", sub_str[n]);
-	    mosquitto_subscribe(mqc, NULL, sub_str[n], 0);
-	}
 	
 	do {
 	    printf("Entering loop.\n");
